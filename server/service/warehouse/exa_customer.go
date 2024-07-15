@@ -1,10 +1,10 @@
-package example
+package warehouse
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
 	systemService "github.com/flipped-aurora/gin-vue-admin/server/service/system"
 )
 
@@ -16,7 +16,7 @@ type CustomerService struct{}
 //@param: e model.ExaCustomer
 //@return: err error
 
-func (exa *CustomerService) CreateExaCustomer(e example.ExaCustomer) (err error) {
+func (exa *CustomerService) CreateExaCustomer(e warehouse.ExaCustomer) (err error) {
 	err = global.GVA_DB.Create(&e).Error
 	return err
 }
@@ -27,7 +27,7 @@ func (exa *CustomerService) CreateExaCustomer(e example.ExaCustomer) (err error)
 //@param: e model.ExaCustomer
 //@return: err error
 
-func (exa *CustomerService) DeleteExaCustomer(e example.ExaCustomer) (err error) {
+func (exa *CustomerService) DeleteExaCustomer(e warehouse.ExaCustomer) (err error) {
 	err = global.GVA_DB.Delete(&e).Error
 	return err
 }
@@ -38,7 +38,7 @@ func (exa *CustomerService) DeleteExaCustomer(e example.ExaCustomer) (err error)
 //@param: e *model.ExaCustomer
 //@return: err error
 
-func (exa *CustomerService) UpdateExaCustomer(e *example.ExaCustomer) (err error) {
+func (exa *CustomerService) UpdateExaCustomer(e *warehouse.ExaCustomer) (err error) {
 	err = global.GVA_DB.Save(e).Error
 	return err
 }
@@ -49,7 +49,7 @@ func (exa *CustomerService) UpdateExaCustomer(e *example.ExaCustomer) (err error
 //@param: id uint
 //@return: customer model.ExaCustomer, err error
 
-func (exa *CustomerService) GetExaCustomer(id uint) (customer example.ExaCustomer, err error) {
+func (exa *CustomerService) GetExaCustomer(id uint) (customer warehouse.ExaCustomer, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&customer).Error
 	return
 }
@@ -63,7 +63,7 @@ func (exa *CustomerService) GetExaCustomer(id uint) (customer example.ExaCustome
 func (exa *CustomerService) GetCustomerInfoList(sysUserAuthorityID uint, info request.PageInfo) (list interface{}, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
-	db := global.GVA_DB.Model(&example.ExaCustomer{})
+	db := global.GVA_DB.Model(&warehouse.ExaCustomer{})
 	var a system.SysAuthority
 	a.AuthorityId = sysUserAuthorityID
 	auth, err := systemService.AuthorityServiceApp.GetAuthorityInfo(a)
@@ -74,7 +74,7 @@ func (exa *CustomerService) GetCustomerInfoList(sysUserAuthorityID uint, info re
 	for _, v := range auth.DataAuthorityId {
 		dataId = append(dataId, v.AuthorityId)
 	}
-	var CustomerList []example.ExaCustomer
+	var CustomerList []warehouse.ExaCustomer
 	err = db.Where("sys_user_authority_id in ?", dataId).Count(&total).Error
 	if err != nil {
 		return CustomerList, total, err

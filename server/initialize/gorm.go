@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -50,10 +50,10 @@ func RegisterTables() {
 		system.Condition{},
 		system.JoinTemplate{},
 
-		example.ExaFile{},
-		example.ExaCustomer{},
-		example.ExaFileChunk{},
-		example.ExaFileUploadAndDownload{},
+		warehouse.ExaFile{},
+		warehouse.ExaCustomer{},
+		warehouse.ExaFileChunk{},
+		warehouse.ExaFileUploadAndDownload{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

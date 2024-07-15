@@ -1,4 +1,4 @@
-package example
+package warehouse
 
 type ServiceGroup struct {
 	CustomerService

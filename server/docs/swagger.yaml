@@ -646,102 +646,6 @@ definitions:
         description: 栈名
         type: string
     type: object
-  example.ExaCustomer:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      customerName:
-        description: 客户名
-        type: string
-      customerPhoneData:
-        description: 客户手机号
-        type: string
-      sysUser:
-        allOf:
-        - $ref: '#/definitions/system.SysUser'
-        description: 管理详情
-      sysUserAuthorityID:
-        description: 管理角色ID
-        type: integer
-      sysUserId:
-        description: 管理ID
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFile:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      chunkTotal:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      exaFileChunk:
-        items:
-          $ref: '#/definitions/example.ExaFileChunk'
-        type: array
-      fileMd5:
-        type: string
-      fileName:
-        type: string
-      filePath:
-        type: string
-      isFinish:
-        type: boolean
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFileChunk:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      exaFileID:
-        type: integer
-      fileChunkNumber:
-        type: integer
-      fileChunkPath:
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFileUploadAndDownload:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      key:
-        description: 编号
-        type: string
-      name:
-        description: 文件名
-        type: string
-      tag:
-        description: 文件标签
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      url:
-        description: 文件地址
-        type: string
-    type: object
   github_com_flipped-aurora_gin-vue-admin_server_config.Email:
     properties:
       from:
@@ -764,6 +668,42 @@ definitions:
         type: string
       to:
         description: 收件人:多个以英文逗号分隔 例：a@qq.com b@qq.com 正式开发中请把此项目作为参数使用
+        type: string
+    type: object
+  meeting.MUsers:
+    properties:
+      createdAt:
+        description: 记录创建时间
+        type: string
+      email:
+        description: 用户电子邮件，需要是唯一的
+        type: string
+      id:
+        description: 用户ID
+        type: integer
+      isMuted:
+        description: 是否禁言：0表示未禁言，1表示已禁言
+        type: boolean
+      openid:
+        description: 微信小程序返回的OpenID，用于标识微信小程序账号
+        type: string
+      password:
+        description: 用户密码，实际应用中建议使用密码哈希存储
+        type: string
+      phone:
+        description: 用户手机号码，需要是唯一的
+        type: string
+      status:
+        description: 用户状态：1表示激活，0表示未激活
+        type: boolean
+      unionid:
+        description: 微信小程序返回的UnionID，用于标识微信开放平台账号
+        type: string
+      updatedAt:
+        description: 记录更新时间
+        type: string
+      username:
+        description: 用户名，需要是唯一的
         type: string
     type: object
   request.AddMenuAuthorityInfo:
@@ -884,31 +824,22 @@ definitions:
   request.Register:
     properties:
       authorityId:
-        example: int 角色id
         type: string
       authorityIds:
-        example: '[]uint 角色id'
         type: string
       email:
-        example: 电子邮箱
         type: string
       enable:
-        example: int 是否启用
         type: string
       headerImg:
-        example: 头像链接
         type: string
       nickName:
-        example: 昵称
         type: string
       passWord:
-        example: 密码
         type: string
       phone:
-        example: 电话号码
         type: string
       userName:
-        example: 用户名
         type: string
     type: object
   request.RollBack:
@@ -1019,12 +950,12 @@ definitions:
   response.ExaCustomerResponse:
     properties:
       customer:
-        $ref: '#/definitions/example.ExaCustomer'
+        $ref: '#/definitions/warehouse.ExaCustomer'
     type: object
   response.ExaFileResponse:
     properties:
       file:
-        $ref: '#/definitions/example.ExaFileUploadAndDownload'
+        $ref: '#/definitions/warehouse.ExaFileUploadAndDownload'
     type: object
   response.FilePathResponse:
     properties:
@@ -1034,7 +965,7 @@ definitions:
   response.FileResponse:
     properties:
       file:
-        $ref: '#/definitions/example.ExaFile'
+        $ref: '#/definitions/warehouse.ExaFile'
     type: object
   response.LoginResponse:
     properties:
@@ -1742,6 +1673,102 @@ definitions:
     properties:
       config:
         $ref: '#/definitions/config.Server'
+    type: object
+  warehouse.ExaCustomer:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      customerName:
+        description: 客户名
+        type: string
+      customerPhoneData:
+        description: 客户手机号
+        type: string
+      sysUser:
+        allOf:
+        - $ref: '#/definitions/system.SysUser'
+        description: 管理详情
+      sysUserAuthorityID:
+        description: 管理角色ID
+        type: integer
+      sysUserId:
+        description: 管理ID
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  warehouse.ExaFile:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      chunkTotal:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      exaFileChunk:
+        items:
+          $ref: '#/definitions/warehouse.ExaFileChunk'
+        type: array
+      fileMd5:
+        type: string
+      fileName:
+        type: string
+      filePath:
+        type: string
+      isFinish:
+        type: boolean
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  warehouse.ExaFileChunk:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      exaFileID:
+        type: integer
+      fileChunkNumber:
+        type: integer
+      fileChunkPath:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  warehouse.ExaFileUploadAndDownload:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      key:
+        description: 编号
+        type: string
+      name:
+        description: 文件名
+        type: string
+      tag:
+        description: 文件标签
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      url:
+        description: 文件地址
+        type: string
     type: object
 info:
   contact: {}
@@ -2839,7 +2866,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/example.ExaCustomer'
+          $ref: '#/definitions/warehouse.ExaCustomer'
       produces:
       - application/json
       responses:
@@ -2917,7 +2944,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/example.ExaCustomer'
+          $ref: '#/definitions/warehouse.ExaCustomer'
       produces:
       - application/json
       responses:
@@ -2944,7 +2971,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/example.ExaCustomer'
+          $ref: '#/definitions/warehouse.ExaCustomer'
       produces:
       - application/json
       responses:
@@ -3038,7 +3065,7 @@ paths:
       consumes:
       - multipart/form-data
       parameters:
-      - description: an example for breakpoint resume, 断点续传示例
+      - description: an warehouse for breakpoint resume, 断点续传示例
         in: formData
         name: file
         required: true
@@ -3068,7 +3095,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/example.ExaFileUploadAndDownload'
+          $ref: '#/definitions/warehouse.ExaFileUploadAndDownload'
       produces:
       - application/json
       responses:
@@ -3266,6 +3293,252 @@ paths:
       summary: jwt加入黑名单
       tags:
       - Jwt
+  /mUsers/createMUsers:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建mUsers表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/meeting.MUsers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建mUsers表
+      tags:
+      - MUsers
+  /mUsers/deleteMUsers:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除mUsers表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/meeting.MUsers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除mUsers表
+      tags:
+      - MUsers
+  /mUsers/deleteMUsersByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 批量删除成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除mUsers表
+      tags:
+      - MUsers
+  /mUsers/findMUsers:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 记录创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 用户电子邮件，需要是唯一的
+        in: query
+        name: email
+        type: string
+      - description: 用户ID
+        in: query
+        name: id
+        type: integer
+      - description: 是否禁言：0表示未禁言，1表示已禁言
+        in: query
+        name: isMuted
+        type: boolean
+      - description: 微信小程序返回的OpenID，用于标识微信小程序账号
+        in: query
+        name: openid
+        type: string
+      - description: 用户密码，实际应用中建议使用密码哈希存储
+        in: query
+        name: password
+        type: string
+      - description: 用户手机号码，需要是唯一的
+        in: query
+        name: phone
+        type: string
+      - description: 用户状态：1表示激活，0表示未激活
+        in: query
+        name: status
+        type: boolean
+      - description: 微信小程序返回的UnionID，用于标识微信开放平台账号
+        in: query
+        name: unionid
+        type: string
+      - description: 记录更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - description: 用户名，需要是唯一的
+        in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 查询成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  properties:
+                    remUsers:
+                      $ref: '#/definitions/meeting.MUsers'
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询mUsers表
+      tags:
+      - MUsers
+  /mUsers/getMUsersList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.PageResult'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取mUsers表列表
+      tags:
+      - MUsers
+  /mUsers/getMUsersPublic:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  type: object
+                msg:
+                  type: string
+              type: object
+      summary: 不需要鉴权的mUsers表接口
+      tags:
+      - MUsers
+  /mUsers/updateMUsers:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新mUsers表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/meeting.MUsers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 更新mUsers表
+      tags:
+      - MUsers
   /menu/addBaseMenu:
     post:
       consumes:
