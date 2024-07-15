@@ -131,11 +131,11 @@ mysql:
     password: mypassword.123
     path: 49.233.53.131
     engine: ""
-    log-mode: error
+    log-mode: info
     max-idle-conns: 10
     max-open-conns: 100
     singular: false
-    log-zap: false
+    log-zap: true
 oracle:
     prefix: ""
     port: ""
@@ -198,7 +198,7 @@ sqlite:
 system:
     db-type: mysql
     oss-type: local
-    router-prefix: ""
+    router-prefix: "/admin"
     addr: 8888
     iplimit-count: 15000
     iplimit-time: 3600
