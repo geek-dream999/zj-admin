@@ -1,4 +1,4 @@
-package example
+package warehouse
 
 import (
 	"errors"
@@ -7,7 +7,7 @@ import (
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/upload"
 )
 
@@ -17,7 +17,7 @@ import (
 //@param: file model.ExaFileUploadAndDownload
 //@return: error
 
-func (e *FileUploadAndDownloadService) Upload(file example.ExaFileUploadAndDownload) error {
+func (e *FileUploadAndDownloadService) Upload(file warehouse.ExaFileUploadAndDownload) error {
 	return global.GVA_DB.Create(&file).Error
 }
 
@@ -27,8 +27,8 @@ func (e *FileUploadAndDownloadService) Upload(file example.ExaFileUploadAndDownl
 //@param: id uint
 //@return: model.ExaFileUploadAndDownload, error
 
-func (e *FileUploadAndDownloadService) FindFile(id uint) (example.ExaFileUploadAndDownload, error) {
-	var file example.ExaFileUploadAndDownload
+func (e *FileUploadAndDownloadService) FindFile(id uint) (warehouse.ExaFileUploadAndDownload, error) {
+	var file warehouse.ExaFileUploadAndDownload
 	err := global.GVA_DB.Where("id = ?", id).First(&file).Error
 	return file, err
 }
@@ -39,8 +39,8 @@ func (e *FileUploadAndDownloadService) FindFile(id uint) (example.ExaFileUploadA
 //@param: file model.ExaFileUploadAndDownload
 //@return: err error
 
-func (e *FileUploadAndDownloadService) DeleteFile(file example.ExaFileUploadAndDownload) (err error) {
-	var fileFromDb example.ExaFileUploadAndDownload
+func (e *FileUploadAndDownloadService) DeleteFile(file warehouse.ExaFileUploadAndDownload) (err error) {
+	var fileFromDb warehouse.ExaFileUploadAndDownload
 	fileFromDb, err = e.FindFile(file.ID)
 	if err != nil {
 		return
@@ -54,8 +54,8 @@ func (e *FileUploadAndDownloadService) DeleteFile(file example.ExaFileUploadAndD
 }
 
 // EditFileName 编辑文件名或者备注
-func (e *FileUploadAndDownloadService) EditFileName(file example.ExaFileUploadAndDownload) (err error) {
-	var fileFromDb example.ExaFileUploadAndDownload
+func (e *FileUploadAndDownloadService) EditFileName(file warehouse.ExaFileUploadAndDownload) (err error) {
+	var fileFromDb warehouse.ExaFileUploadAndDownload
 	return global.GVA_DB.Where("id = ?", file.ID).First(&fileFromDb).Update("name", file.Name).Error
 }
 
@@ -69,8 +69,8 @@ func (e *FileUploadAndDownloadService) GetFileRecordInfoList(info request.PageIn
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	keyword := info.Keyword
-	db := global.GVA_DB.Model(&example.ExaFileUploadAndDownload{})
-	var fileLists []example.ExaFileUploadAndDownload
+	db := global.GVA_DB.Model(&warehouse.ExaFileUploadAndDownload{})
+	var fileLists []warehouse.ExaFileUploadAndDownload
 	if len(keyword) > 0 {
 		db = db.Where("name LIKE ?", "%"+keyword+"%")
 	}
@@ -88,14 +88,14 @@ func (e *FileUploadAndDownloadService) GetFileRecordInfoList(info request.PageIn
 //@param: header *multipart.FileHeader, noSave string
 //@return: file model.ExaFileUploadAndDownload, err error
 
-func (e *FileUploadAndDownloadService) UploadFile(header *multipart.FileHeader, noSave string) (file example.ExaFileUploadAndDownload, err error) {
+func (e *FileUploadAndDownloadService) UploadFile(header *multipart.FileHeader, noSave string) (file warehouse.ExaFileUploadAndDownload, err error) {
 	oss := upload.NewOss()
 	filePath, key, uploadErr := oss.UploadFile(header)
 	if uploadErr != nil {
 		panic(uploadErr)
 	}
 	s := strings.Split(header.Filename, ".")
-	f := example.ExaFileUploadAndDownload{
+	f := warehouse.ExaFileUploadAndDownload{
 		Url:  filePath,
 		Name: header.Filename,
 		Tag:  s[len(s)-1],

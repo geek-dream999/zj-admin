@@ -1,11 +1,11 @@
-package example
+package warehouse
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
-	exampleRes "github.com/flipped-aurora/gin-vue-admin/server/model/example/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
+	exampleRes "github.com/flipped-aurora/gin-vue-admin/server/model/warehouse/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -19,11 +19,11 @@ type CustomerApi struct{}
 // @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param     data  body      example.ExaCustomer            true  "客户用户名, 客户手机号码"
+// @Param     data  body      warehouse.ExaCustomer            true  "客户用户名, 客户手机号码"
 // @Success   200   {object}  response.Response{msg=string}  "创建客户"
 // @Router    /customer/customer [post]
 func (e *CustomerApi) CreateExaCustomer(c *gin.Context) {
-	var customer example.ExaCustomer
+	var customer warehouse.ExaCustomer
 	err := c.ShouldBindJSON(&customer)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -51,11 +51,11 @@ func (e *CustomerApi) CreateExaCustomer(c *gin.Context) {
 // @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param     data  body      example.ExaCustomer            true  "客户ID"
+// @Param     data  body      warehouse.ExaCustomer            true  "客户ID"
 // @Success   200   {object}  response.Response{msg=string}  "删除客户"
 // @Router    /customer/customer [delete]
 func (e *CustomerApi) DeleteExaCustomer(c *gin.Context) {
-	var customer example.ExaCustomer
+	var customer warehouse.ExaCustomer
 	err := c.ShouldBindJSON(&customer)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -81,11 +81,11 @@ func (e *CustomerApi) DeleteExaCustomer(c *gin.Context) {
 // @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param     data  body      example.ExaCustomer            true  "客户ID, 客户信息"
+// @Param     data  body      warehouse.ExaCustomer            true  "客户ID, 客户信息"
 // @Success   200   {object}  response.Response{msg=string}  "更新客户信息"
 // @Router    /customer/customer [put]
 func (e *CustomerApi) UpdateExaCustomer(c *gin.Context) {
-	var customer example.ExaCustomer
+	var customer warehouse.ExaCustomer
 	err := c.ShouldBindJSON(&customer)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -116,11 +116,11 @@ func (e *CustomerApi) UpdateExaCustomer(c *gin.Context) {
 // @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param     data  query     example.ExaCustomer                                                true  "客户ID"
+// @Param     data  query     warehouse.ExaCustomer                                                true  "客户ID"
 // @Success   200   {object}  response.Response{data=exampleRes.ExaCustomerResponse,msg=string}  "获取单一客户信息,返回包括客户详情"
 // @Router    /customer/customer [get]
 func (e *CustomerApi) GetExaCustomer(c *gin.Context) {
-	var customer example.ExaCustomer
+	var customer warehouse.ExaCustomer
 	err := c.ShouldBindQuery(&customer)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

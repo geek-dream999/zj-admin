@@ -1,10 +1,10 @@
-package example
+package warehouse
 
 import (
 	"errors"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
 	"gorm.io/gorm"
 )
 
@@ -16,8 +16,8 @@ type FileUploadAndDownloadService struct{}
 //@param: fileMd5 string, fileName string, chunkTotal int
 //@return: file model.ExaFile, err error
 
-func (e *FileUploadAndDownloadService) FindOrCreateFile(fileMd5 string, fileName string, chunkTotal int) (file example.ExaFile, err error) {
-	var cfile example.ExaFile
+func (e *FileUploadAndDownloadService) FindOrCreateFile(fileMd5 string, fileName string, chunkTotal int) (file warehouse.ExaFile, err error) {
+	var cfile warehouse.ExaFile
 	cfile.FileMd5 = fileMd5
 	cfile.FileName = fileName
 	cfile.ChunkTotal = chunkTotal
@@ -39,7 +39,7 @@ func (e *FileUploadAndDownloadService) FindOrCreateFile(fileMd5 string, fileName
 //@return: error
 
 func (e *FileUploadAndDownloadService) CreateFileChunk(id uint, fileChunkPath string, fileChunkNumber int) error {
-	var chunk example.ExaFileChunk
+	var chunk warehouse.ExaFileChunk
 	chunk.FileChunkPath = fileChunkPath
 	chunk.ExaFileID = id
 	chunk.FileChunkNumber = fileChunkNumber
@@ -54,8 +54,8 @@ func (e *FileUploadAndDownloadService) CreateFileChunk(id uint, fileChunkPath st
 //@return: error
 
 func (e *FileUploadAndDownloadService) DeleteFileChunk(fileMd5 string, filePath string) error {
-	var chunks []example.ExaFileChunk
-	var file example.ExaFile
+	var chunks []warehouse.ExaFileChunk
+	var file warehouse.ExaFile
 	err := global.GVA_DB.Where("file_md5 = ? ", fileMd5).First(&file).
 		Updates(map[string]interface{}{
 			"IsFinish":  true,

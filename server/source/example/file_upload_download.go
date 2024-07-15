@@ -2,7 +2,7 @@ package example
 
 import (
 	"context"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/warehouse"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
@@ -22,7 +22,7 @@ func (i *initExaFileMysql) MigrateTable(ctx context.Context) (context.Context, e
 	if !ok {
 		return ctx, system.ErrMissingDBContext
 	}
-	return ctx, db.AutoMigrate(&example.ExaFileUploadAndDownload{})
+	return ctx, db.AutoMigrate(&warehouse.ExaFileUploadAndDownload{})
 }
 
 func (i *initExaFileMysql) TableCreated(ctx context.Context) bool {
@@ -30,11 +30,11 @@ func (i *initExaFileMysql) TableCreated(ctx context.Context) bool {
 	if !ok {
 		return false
 	}
-	return db.Migrator().HasTable(&example.ExaFileUploadAndDownload{})
+	return db.Migrator().HasTable(&warehouse.ExaFileUploadAndDownload{})
 }
 
 func (i initExaFileMysql) InitializerName() string {
-	return example.ExaFileUploadAndDownload{}.TableName()
+	return warehouse.ExaFileUploadAndDownload{}.TableName()
 }
 
 func (i *initExaFileMysql) InitializeData(ctx context.Context) (context.Context, error) {
@@ -42,12 +42,12 @@ func (i *initExaFileMysql) InitializeData(ctx context.Context) (context.Context,
 	if !ok {
 		return ctx, system.ErrMissingDBContext
 	}
-	entities := []example.ExaFileUploadAndDownload{
+	entities := []warehouse.ExaFileUploadAndDownload{
 		{Name: "10.png", Url: "https://qmplusimg.henrongyi.top/gvalogo.png", Tag: "png", Key: "158787308910.png"},
 		{Name: "logo.png", Url: "https://qmplusimg.henrongyi.top/1576554439myAvatar.png", Tag: "png", Key: "1587973709logo.png"},
 	}
 	if err := db.Create(&entities).Error; err != nil {
-		return ctx, errors.Wrap(err, example.ExaFileUploadAndDownload{}.TableName()+"表数据初始化失败!")
+		return ctx, errors.Wrap(err, warehouse.ExaFileUploadAndDownload{}.TableName()+"表数据初始化失败!")
 	}
 	return ctx, nil
 }
@@ -57,7 +57,7 @@ func (i *initExaFileMysql) DataInserted(ctx context.Context) bool {
 	if !ok {
 		return false
 	}
-	lookup := example.ExaFileUploadAndDownload{Name: "logo.png", Key: "1587973709logo.png"}
+	lookup := warehouse.ExaFileUploadAndDownload{Name: "logo.png", Key: "1587973709logo.png"}
 	if errors.Is(db.First(&lookup, &lookup).Error, gorm.ErrRecordNotFound) {
 		return false
 	}

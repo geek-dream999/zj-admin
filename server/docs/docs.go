@@ -2043,7 +2043,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
+                            "$ref": "#/definitions/warehouse.ExaCustomer"
                         }
                     }
                 ],
@@ -2091,7 +2091,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
+                            "$ref": "#/definitions/warehouse.ExaCustomer"
                         }
                     }
                 ],
@@ -2139,7 +2139,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
+                            "$ref": "#/definitions/warehouse.ExaCustomer"
                         }
                     }
                 ],
@@ -2306,7 +2306,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "an example for breakpoint resume, 断点续传示例",
+                        "description": "an warehouse for breakpoint resume, 断点续传示例",
                         "name": "file",
                         "in": "formData",
                         "required": true
@@ -2355,7 +2355,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaFileUploadAndDownload"
+                            "$ref": "#/definitions/warehouse.ExaFileUploadAndDownload"
                         }
                     }
                 ],
@@ -2681,6 +2681,429 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "jwt加入黑名单",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/createMUsers": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "创建mUsers表",
+                "parameters": [
+                    {
+                        "description": "创建mUsers表",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/meeting.MUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/deleteMUsers": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "删除mUsers表",
+                "parameters": [
+                    {
+                        "description": "删除mUsers表",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/meeting.MUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/deleteMUsersByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "批量删除mUsers表",
+                "responses": {
+                    "200": {
+                        "description": "批量删除成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/findMUsers": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "用id查询mUsers表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "记录创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户电子邮件，需要是唯一的",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "是否禁言：0表示未禁言，1表示已禁言",
+                        "name": "isMuted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "微信小程序返回的OpenID，用于标识微信小程序账号",
+                        "name": "openid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户密码，实际应用中建议使用密码哈希存储",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户手机号码，需要是唯一的",
+                        "name": "phone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "用户状态：1表示激活，0表示未激活",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "微信小程序返回的UnionID，用于标识微信开放平台账号",
+                        "name": "unionid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "记录更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户名，需要是唯一的",
+                        "name": "username",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "查询成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "remUsers": {
+                                                    "$ref": "#/definitions/meeting.MUsers"
+                                                }
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/getMUsersList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "分页获取mUsers表列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "获取成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.PageResult"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/getMUsersPublic": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "不需要鉴权的mUsers表接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "获取成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/mUsers/updateMUsers": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MUsers"
+                ],
+                "summary": "更新mUsers表",
+                "parameters": [
+                    {
+                        "description": "更新mUsers表",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/meeting.MUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
                         "schema": {
                             "allOf": [
                                 {
@@ -6191,144 +6614,6 @@ const docTemplate = `{
                 }
             }
         },
-        "example.ExaCustomer": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "customerName": {
-                    "description": "客户名",
-                    "type": "string"
-                },
-                "customerPhoneData": {
-                    "description": "客户手机号",
-                    "type": "string"
-                },
-                "sysUser": {
-                    "description": "管理详情",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/system.SysUser"
-                        }
-                    ]
-                },
-                "sysUserAuthorityID": {
-                    "description": "管理角色ID",
-                    "type": "integer"
-                },
-                "sysUserId": {
-                    "description": "管理ID",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFile": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "chunkTotal": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "exaFileChunk": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/example.ExaFileChunk"
-                    }
-                },
-                "fileMd5": {
-                    "type": "string"
-                },
-                "fileName": {
-                    "type": "string"
-                },
-                "filePath": {
-                    "type": "string"
-                },
-                "isFinish": {
-                    "type": "boolean"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFileChunk": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "exaFileID": {
-                    "type": "integer"
-                },
-                "fileChunkNumber": {
-                    "type": "integer"
-                },
-                "fileChunkPath": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFileUploadAndDownload": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "key": {
-                    "description": "编号",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "文件名",
-                    "type": "string"
-                },
-                "tag": {
-                    "description": "文件标签",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "url": {
-                    "description": "文件地址",
-                    "type": "string"
-                }
-            }
-        },
         "github_com_flipped-aurora_gin-vue-admin_server_config.Email": {
             "type": "object",
             "properties": {
@@ -6358,6 +6643,55 @@ const docTemplate = `{
                 },
                 "to": {
                     "description": "收件人:多个以英文逗号分隔 例：a@qq.com b@qq.com 正式开发中请把此项目作为参数使用",
+                    "type": "string"
+                }
+            }
+        },
+        "meeting.MUsers": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "记录创建时间",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "用户电子邮件，需要是唯一的",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "用户ID",
+                    "type": "integer"
+                },
+                "isMuted": {
+                    "description": "是否禁言：0表示未禁言，1表示已禁言",
+                    "type": "boolean"
+                },
+                "openid": {
+                    "description": "微信小程序返回的OpenID，用于标识微信小程序账号",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "用户密码，实际应用中建议使用密码哈希存储",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "用户手机号码，需要是唯一的",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "用户状态：1表示激活，0表示未激活",
+                    "type": "boolean"
+                },
+                "unionid": {
+                    "description": "微信小程序返回的UnionID，用于标识微信开放平台账号",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "记录更新时间",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "用户名，需要是唯一的",
                     "type": "string"
                 }
             }
@@ -6532,40 +6866,31 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "authorityId": {
-                    "type": "string",
-                    "example": "int 角色id"
+                    "type": "string"
                 },
                 "authorityIds": {
-                    "type": "string",
-                    "example": "[]uint 角色id"
+                    "type": "string"
                 },
                 "email": {
-                    "type": "string",
-                    "example": "电子邮箱"
+                    "type": "string"
                 },
                 "enable": {
-                    "type": "string",
-                    "example": "int 是否启用"
+                    "type": "string"
                 },
                 "headerImg": {
-                    "type": "string",
-                    "example": "头像链接"
+                    "type": "string"
                 },
                 "nickName": {
-                    "type": "string",
-                    "example": "昵称"
+                    "type": "string"
                 },
                 "passWord": {
-                    "type": "string",
-                    "example": "密码"
+                    "type": "string"
                 },
                 "phone": {
-                    "type": "string",
-                    "example": "电话号码"
+                    "type": "string"
                 },
                 "userName": {
-                    "type": "string",
-                    "example": "用户名"
+                    "type": "string"
                 }
             }
         },
@@ -6722,7 +7047,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "customer": {
-                    "$ref": "#/definitions/example.ExaCustomer"
+                    "$ref": "#/definitions/warehouse.ExaCustomer"
                 }
             }
         },
@@ -6730,7 +7055,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "file": {
-                    "$ref": "#/definitions/example.ExaFileUploadAndDownload"
+                    "$ref": "#/definitions/warehouse.ExaFileUploadAndDownload"
                 }
             }
         },
@@ -6746,7 +7071,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "file": {
-                    "$ref": "#/definitions/example.ExaFile"
+                    "$ref": "#/definitions/warehouse.ExaFile"
                 }
             }
         },
@@ -7761,6 +8086,144 @@ const docTemplate = `{
             "properties": {
                 "config": {
                     "$ref": "#/definitions/config.Server"
+                }
+            }
+        },
+        "warehouse.ExaCustomer": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "customerName": {
+                    "description": "客户名",
+                    "type": "string"
+                },
+                "customerPhoneData": {
+                    "description": "客户手机号",
+                    "type": "string"
+                },
+                "sysUser": {
+                    "description": "管理详情",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.SysUser"
+                        }
+                    ]
+                },
+                "sysUserAuthorityID": {
+                    "description": "管理角色ID",
+                    "type": "integer"
+                },
+                "sysUserId": {
+                    "description": "管理ID",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "warehouse.ExaFile": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "chunkTotal": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "exaFileChunk": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/warehouse.ExaFileChunk"
+                    }
+                },
+                "fileMd5": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "filePath": {
+                    "type": "string"
+                },
+                "isFinish": {
+                    "type": "boolean"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "warehouse.ExaFileChunk": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "exaFileID": {
+                    "type": "integer"
+                },
+                "fileChunkNumber": {
+                    "type": "integer"
+                },
+                "fileChunkPath": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "warehouse.ExaFileUploadAndDownload": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "key": {
+                    "description": "编号",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "文件名",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "文件标签",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "文件地址",
+                    "type": "string"
                 }
             }
         }

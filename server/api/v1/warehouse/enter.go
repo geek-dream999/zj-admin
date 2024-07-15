@@ -1,4 +1,4 @@
-package example
+package warehouse
 
 import "github.com/flipped-aurora/gin-vue-admin/server/service"
 

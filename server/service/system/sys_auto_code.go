@@ -279,7 +279,7 @@ func (autoCodeService *AutoCodeService) CreateTemp(autoCode system.AutoCodeStruc
 		if autoCode.AutoMigrate {
 			// 在gorm.go 注入 自动迁移
 			path := filepath.Join(global.GVA_CONFIG.AutoCode.Root,
-				global.GVA_CONFIG.AutoCode.Server, global.GVA_CONFIG.AutoCode.SInitialize, "gorm_biz.go")
+				global.GVA_CONFIG.AutoCode.Server, global.GVA_CONFIG.AutoCode.SInitialize, "gorm.go")
 			varDB := utils.MaheHump(autoCode.BusinessDB)
 			ast2.AddRegisterTablesAst(path, "bizModel", autoCode.Package, varDB, autoCode.BusinessDB, autoCode.StructName)
 		}
@@ -288,7 +288,7 @@ func (autoCodeService *AutoCodeService) CreateTemp(autoCode system.AutoCodeStruc
 	{
 		// router.go 注入 自动迁移
 		path := filepath.Join(global.GVA_CONFIG.AutoCode.Root,
-			global.GVA_CONFIG.AutoCode.Server, global.GVA_CONFIG.AutoCode.SInitialize, "router_biz.go")
+			global.GVA_CONFIG.AutoCode.Server, global.GVA_CONFIG.AutoCode.SInitialize, "router.go")
 		ast2.AddRouterCode(path, "initBizRouter", autoCode.Package, autoCode.StructName)
 	}
 	// 给各个enter进行注入
@@ -571,7 +571,7 @@ func injectionCode(structName string, bf *strings.Builder) error {
 }
 
 func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) error {
-	if s.PackageName == "autocode" || s.PackageName == "system" || s.PackageName == "example" || s.PackageName == "" {
+	if s.PackageName == "autocode" || s.PackageName == "system" || s.PackageName == "warehouse" || s.PackageName == "" {
 		return errors.New("不能使用已保留的package name")
 	}
 	if !errors.Is(global.GVA_DB.Where("package_name = ?", s.PackageName).First(&system.SysAutoCode{}).Error, gorm.ErrRecordNotFound) {
